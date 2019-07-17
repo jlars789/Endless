@@ -1,0 +1,26 @@
+Commands can be accesed via the Diety's "Wish" Ability ([E])
+Diety can be accessed by pressing the "\" key at character select
+They are formatted as: [command] [field], seperated by a space.
+Capital letters are not to be included, and are not available
+in the console.
+
+The existing commands and their fields are listed:
+
+"teleport":
+    -coordinates: #,#
+    -destination: "treasure", "boss"
+
+"modchar": 
+    -mod: "damage":
+        value: # (double)
+    -mod: "firerate":
+        value: # (double)
+    -mod: "speed":
+        value: # (float)
+    -mod: "health":
+        value: # (int)
+
+"spawnitem":
+    -id: # (int)
+    -spawn:
+        "all"
