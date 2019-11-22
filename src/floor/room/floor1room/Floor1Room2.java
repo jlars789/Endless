@@ -19,7 +19,6 @@ public class Floor1Room2 extends NormalRoom implements Cloneable {
 
 	public Floor1Room2(Floor floor, int xLocation, int yLocation, Sprite sprite) {
 		super(floor, xLocation, yLocation, sprite);
-		super.setEnemyList(ENEMY_LIST);
 	}
 	
 	public Floor1Room2() {
@@ -34,11 +33,6 @@ public class Floor1Room2 extends NormalRoom implements Cloneable {
 	@Override
 	protected Hostile[] giveEnemyList() {
 		return ENEMY_LIST;
-	}
-
-	@Override
-	protected void action() {
-		
 	}
 
 }

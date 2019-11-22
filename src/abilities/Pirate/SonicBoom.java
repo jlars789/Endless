@@ -24,11 +24,7 @@ public class SonicBoom extends ProjectileAbility {
 
 	public SonicBoom() {
 		super(SLOT, cooldown, false);
-		
-		super.setDamage(damage);
-		super.setPierce(pierce);
-		super.setProjectileSpeed(projectileSpeed);
-		
+		this.internalInit(damage, projectileSpeed, pierce);
 		this.stun = new Stun(duration);
 	}
 	

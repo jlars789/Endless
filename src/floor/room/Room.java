@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import characters.Characters;
 import floor.Floor;
 import floor.room.door.Door;
-import hostiles.Hostile;
 import main.Entity;
 import main.EntityLists;
 import main.Gamepanel;
@@ -33,8 +32,6 @@ public abstract class Room {
 	
 	private Door[] door;
 	private int doorCount;
-	
-	private ArrayList<Entity> entity;
 	
 	private boolean created;
 	private boolean entered;
@@ -77,26 +74,20 @@ public abstract class Room {
 		this.door = new Door[doorCount];
 		this.created = true;
 		roomScan();
-	
-		this.entity = new ArrayList<Entity>();
 		this.charRef = Gamepanel.mainChar;
 	}
 	
-	protected void addComponents(ArrayList<Entity> entities) {
-		this.entity = entities;
+	public void enter() {
+		if(!entered) {
+			this.enterEffect();
+			this.entered = true;
+		}
 	}
 	
-	public void enter() {
-		this.enemyCreate();
-		this.entered = true;
-	}
+	protected abstract void enterEffect();
 	
 	public void exit() {
 		this.entered = false;
-	}
-	
-	protected void enemyCreate() {
-		this.addEntities(entity);
 	}
 	
 	public void draw(Graphics2D g2d) {
@@ -168,39 +159,13 @@ public abstract class Room {
 		}
 	}
 	
-	private void removeHostiles() {
-		for(int i = 0; i < entity.size(); i++) {
-			if(entity.get(i) instanceof Hostile) {
-				entity.remove(i);
-				if(i != 0) i--;
-			}
+	public void update() {
+		for(int i = 0; i < this.door.length; i++) {
+			door[i].update();
 		}
-	}
-	
-	protected void setEnemyList(Hostile[] h) {
-		for(int i = 0; i < h.length; i++) {
-			entity.add(h[i].copy());
+		if(!this.isEntered()) {
+			this.entered = true;
 		}
-	}
-	
-	protected void setEnemy(Hostile h) {
-		entity.add(h);
-	}
-	
-	protected void addObject(Entity e) {
-		entity.add(e);
-	}
-	
-	public void addObjDirect(Entity e) {
-		entity.add(e);
-		EntityLists.entities.add(e);
-	}
-	
-	public void addObjDirect(ArrayList<Entity> entity) {
-		for(int i = 0; i < entity.size(); i++) {
-			this.entity.add(entity.get(i));
-		}
-		EntityLists.addNew(entity);
 	}
 	
 	public void clear() {
@@ -208,8 +173,16 @@ public abstract class Room {
 		for(int i = 0; i < door.length; i++){
 			door[i].open();
 		}
-		this.removeHostiles();
+		EntityLists.removeHostiles();
 		this.action();
+	}
+	
+	public void addObj(Entity e) {
+		EntityLists.addNew(e);
+	}
+	
+	public void addObj(ArrayList<Entity> e) {
+		EntityLists.addNew(e);
 	}
 	
 	protected abstract void action();

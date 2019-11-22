@@ -23,11 +23,9 @@ public class Dynamite extends ProjectileAbility {
 	public Dynamite() {
 		super(SLOT, COOLDOWN, false);
 		
-		super.setDamage(0);
-		super.setPierce(1);
-		super.setProjectileSpeed(PROJECTILE_SPEED);
+		super.internalInit(0, PROJECTILE_SPEED, 1);
 		
-		this.projectileSprite = new LightSprite("imgs/projectiles/dynamite1.png", 2);
+		this.projectileSprite = new LightSprite("imgs/projectiles/dynamite1.png"); //FIXME CHANGE SPRITE SIZE
 	}
 
 	@Override

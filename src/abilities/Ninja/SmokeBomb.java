@@ -21,7 +21,7 @@ public class SmokeBomb extends ProjectileAbility {
 	
 	public SmokeBomb() {
 		super(SLOT, cooldown, true, duration);
-		super.setPierce(9999);
+		super.internalInit(0, 0, 9999);
 	}
 	
 	public void use() {

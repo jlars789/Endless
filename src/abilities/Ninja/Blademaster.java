@@ -14,7 +14,7 @@ import sprite.LightSprite;
 public class Blademaster extends ProjectileAbility {
 	
 	private static final long serialVersionUID = 2982416425538364147L;
-	private static final LightSprite PROJECTILE_SPRITE = new LightSprite("imgs/projectiles/moving_sword.png", 4);
+	private static final LightSprite PROJECTILE_SPRITE = new LightSprite("imgs/projectiles/moving_sword.png");
 	
 	public static int cost = 320;
 	public static int projectileSpeed = 30;
@@ -22,8 +22,7 @@ public class Blademaster extends ProjectileAbility {
 
 	public Blademaster() {
 		super(cost, true);
-		super.setProjectileSpeed(projectileSpeed);
-		super.setDamage(damage);
+		this.internalInit(damage, projectileSpeed, 9999);
 	}
 
 	@Override

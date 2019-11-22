@@ -9,16 +9,15 @@ public class Cripple extends StatusEffect {
 	
 	private HeavySprite sprite;
 	private float prevSpeed;
+	private static final String NAME = "cripple";
 
 	public Cripple(int duration) {
 		super(duration);
-		this.sprite = StatusEffect.getSprite(2);
+		this.sprite = AnimLoader.loadSEAnim(NAME, 1);
 	}
 	
 	@Override
-	public void draw(Graphics2D g) {
-		
-		Graphics2D g2d = (Graphics2D) g;
+	public void draw(Graphics2D g2d) {
 		
 		if(super.getHostile() != null) {
 			g2d.drawImage(sprite.getImage(), null, (int)(super.getHostile().getxCoor() + (super.getHostile().getWidth()/2) - sprite.getImage().getWidth()/2), (int)super.getHostile().getyCoor() - sprite.getImage().getHeight());

@@ -67,7 +67,7 @@ public class TreasureRoom extends Room {
 	public void enter() {
 		if(!bossSpawned) super.setEntered(false);
 		super.enter();
-		super.addObjDirect(interactables);
+		super.addObj(interactables);
 	}
 	
 	private void interactCreate() {
@@ -84,9 +84,16 @@ public class TreasureRoom extends Room {
 	@Override
 	protected void action() {
 		if(!itemAdded && bossSpawned) {
+			interactables.clear();
 			this.itemCreate();
-			super.addObjDirect(interactables);
+			super.addObj(interactables);
 		}
+	}
+
+	@Override
+	protected void enterEffect() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

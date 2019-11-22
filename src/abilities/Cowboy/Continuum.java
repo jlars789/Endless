@@ -18,9 +18,7 @@ public class Continuum extends ProjectileAbility {
 
 	public Continuum() {
 		super(cost, false);
-		super.setDamage(damage);
-		super.setPierce(100);
-		super.setProjectileSpeed(40);
+		this.internalInit(damage, 100, 40);
 	}
 
 	@Override

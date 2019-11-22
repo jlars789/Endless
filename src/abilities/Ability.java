@@ -53,10 +53,6 @@ public abstract class Ability implements Serializable {
 	 */
 	
 	public Ability() {
-		this.active = false;
-		this.inUse = false;
-		this.cooldown = 0;
-		
 	}
 	
 	/**

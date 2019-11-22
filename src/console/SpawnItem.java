@@ -21,7 +21,7 @@ public class SpawnItem extends Command {
 			if(id <= TreasureRoomPool.getFullList().length - 1) {
 				for(int i = 0; i < TreasureRoomPool.getFullList().length; i++) {
 					if(TreasureRoomPool.getFullList()[i].getID() == id) {
-						Gamepanel.currentRoom.addObjDirect(new ItemHolder((int)Gamepanel.mainChar.getCenterPoint()[0], (int)Gamepanel.mainChar.getyCoor() + 100, 
+						Gamepanel.currentRoom.addObj(new ItemHolder((int)Gamepanel.mainChar.getCenterPoint()[0], (int)Gamepanel.mainChar.getyCoor() + 100, 
 								TreasureRoomPool.getFullList()[i]));
 						break;
 					}
@@ -32,7 +32,7 @@ public class SpawnItem extends Command {
 		} catch (NumberFormatException e) {
 			if(args0.equals("all")) {
 				for(int i = 0; i < TreasureRoomPool.getFullList().length; i++) {
-					Gamepanel.currentRoom.addObjDirect(new ItemHolder((int)Gamepanel.mainChar.getCenterPoint()[0], (int)Gamepanel.mainChar.getyCoor() + 100, 
+					Gamepanel.currentRoom.addObj(new ItemHolder((int)Gamepanel.mainChar.getCenterPoint()[0], (int)Gamepanel.mainChar.getyCoor() + 100, 
 								TreasureRoomPool.getFullList()[i]));
 				}
 				return true;

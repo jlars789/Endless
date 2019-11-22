@@ -16,4 +16,8 @@ public class StartRoom extends Room {
 		
 	}
 
+	@Override
+	protected void enterEffect() {
+	}
+
 }

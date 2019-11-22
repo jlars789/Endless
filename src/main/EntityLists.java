@@ -15,13 +15,12 @@ public class EntityLists {
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
 	
 	public static synchronized final void update(double delta) {
+		Projectile.setDelta(delta);
 		for(int i = 0; i < entities.size(); i++) {
 			entities.get(i).update(delta);
-			if(i > 0) {
-				if(entities.get(i).isExpired()) {
-					entities.remove(i);
-					if(i > 0) i--;
-				}
+			if(entities.size() > 0 && entities.get(i).isExpired()) {
+				entities.remove(i);
+				if(i > 0) i--;
 			}
 		}
 	}
@@ -112,5 +111,14 @@ public class EntityLists {
 			if(entities.get(i) instanceof EnemyProjectile) list.add((EnemyProjectile)entities.get(i));
 		}
 		return list;
+	}
+	
+	public static void removeHostiles() {
+		for(int i = 0; i < entities.size(); i++) {
+			if(entities.get(i) instanceof Hostile) {
+				entities.remove(i);
+				//if(i > 0) i--;
+			}
+		}
 	}
 }

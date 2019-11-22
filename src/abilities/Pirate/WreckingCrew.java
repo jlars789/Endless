@@ -22,8 +22,7 @@ public class WreckingCrew extends ProjectileAbility {
 
 	public WreckingCrew() {
 		super(SLOT, cooldown, false);
-		super.setDamage(damage);
-		super.setProjectileSpeed(projectileSpeed);
+		this.internalInit(damage, projectileSpeed, 9999);
 	}
 
 	@Override

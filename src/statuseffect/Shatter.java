@@ -43,7 +43,6 @@ public class Shatter extends StatusEffect {
 	protected void init(Hostile hostile) {
 		this.prevResist = hostile.getResistance();
 		super.getHostile().setResistance(super.getHostile().getResistance() * multiplier);
-		super.activate();
 	}
 
 	@Override

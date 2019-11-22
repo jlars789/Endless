@@ -15,7 +15,7 @@ public class KunaiToss extends ProjectileAbility {
 	
 	private static final long serialVersionUID = -1981640200117922299L;
 	private static final byte SLOT = 0;
-	private static final LightSprite PROJECTILE_SPRITE = new LightSprite("imgs/projectiles/kunai.png", 4);
+	private static final LightSprite PROJECTILE_SPRITE = new LightSprite("imgs/projectiles/kunai.png");
 	
 	private static int cooldown = 580;
 	private static double damage = 25; 
@@ -29,9 +29,7 @@ public class KunaiToss extends ProjectileAbility {
 
 	public KunaiToss() {
 		super(SLOT, cooldown, false);
-		super.setDamage(damage);
-		super.setPierce(pierce);
-		super.setProjectileSpeed(projectileSpeed);
+		this.internalInit(damage, projectileSpeed, pierce);
 		
 		this.weaken = new Weaken(duration, weakenVal);
 	}

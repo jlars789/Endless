@@ -33,6 +33,7 @@ public class FlameSpewer extends Enemy {
 		if(!friends) {
 			this.kill();
 		}
+		System.out.println(super.getHealth().getValues()[0]);
 	}
 
 	@Override

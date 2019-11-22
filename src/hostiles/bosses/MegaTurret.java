@@ -37,7 +37,7 @@ public class MegaTurret extends Boss implements Shooter {
 			super.getAttack(0).attack(mainShoot());
 		}
 		if(super.getAttack(1).canAttack()) {
-			super.getAttack(0).attack(secondaryShoot());
+			super.getAttack(1).attack(secondaryShoot());
 		}
 	}
 	

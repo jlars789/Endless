@@ -25,9 +25,7 @@ public class Ignite extends ProjectileAbility {
 
 	public Ignite() {
 		super(SLOT, cooldown, true);
-		super.setDamage(damage);
-		super.setPierce(9999);
-		super.setProjectileSpeed(0);
+		this.internalInit(damage, 0, 999);
 	}
 	
 	public void use() {

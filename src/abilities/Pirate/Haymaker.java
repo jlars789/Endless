@@ -27,10 +27,7 @@ public class Haymaker extends ProjectileAbility {
 
 	public Haymaker() {
 		super(SLOT, cooldown, false, 200);
-		
-		super.setDamage(damage);
-		super.setPierce(1);
-		super.setProjectileSpeed(0);
+		this.internalInit(damage, 0, 1);
 		
 		this.cripple = new Cripple(duration);
 	}

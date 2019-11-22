@@ -36,7 +36,6 @@ public class Detonate extends StatusEffect {
 
 	@Override
 	protected void init(Hostile hostile) {
-		super.activate();
 	}
 
 	@Override

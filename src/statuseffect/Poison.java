@@ -10,13 +10,14 @@ public class Poison extends StatusEffect {
 	private double damage;
 	private int damageInterval;
 	private HeavySprite sprite;
+	private static final String NAME = "poison";
 	
 	public Poison(double damage) {
 		super(750);
 		this.damage = damage;
 		this.damageInterval = 16;
 		
-		this.sprite = StatusEffect.getSprite(0);
+		this.sprite = AnimLoader.loadSEAnim(NAME, 3);
 	}
 	
 	public void draw(Graphics2D g2d) {

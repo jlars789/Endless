@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JPanel;
 
 import characters.Characters;
@@ -17,7 +18,6 @@ import hostiles.enemies.Enemy;
 import menus.GameOver;
 import menus.Menu;
 import menus.Title;
-import projectiles.Projectile;
 import statuseffect.StatusEffect;
 import weapons.Weapon;
 
@@ -112,19 +112,13 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener {
 				gameRunning = false;
 			}
 			
-			for(int i = 0; i < currentRoom.getDoorAmount(); i++) {
-				currentRoom.getDoors()[i].update();
-			}
-			
-			currentRoom = currentFloor.getRoomList()[mapLocation[1]][mapLocation[0]];
-			if(!currentRoom.isEntered()) {
+			if(mapLocation[0] != currentRoom.getxLocation() || mapLocation[1] != currentRoom.getyLocation()) {
+				currentRoom = currentFloor.getRoomList()[mapLocation[1]][mapLocation[0]];
 				currentRoom.enter();
 			}
 			
+			currentRoom.update();
 			enemyScan();
-			
-			Projectile.setDelta(delta);
-			
 			EntityLists.update(delta);
 		}
 	}
@@ -135,34 +129,12 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener {
 	 */
 	@Override
 	public void paintComponent(Graphics g) {
+		
 		super.paintComponent(g);
-		
 		Graphics2D g2d = (Graphics2D) g;
-		
-		if(gameRunning) {
-			
-			currentRoom.draw(g2d);
-			Timer.draw(g2d);
-			
-			EntityLists.drawInteracts(g2d);
-			
-			ProjectileDraw.draw(g2d, 0);
-			
-			mainChar.draw(g2d);
-			
-			EntityLists.drawEntities(g2d);
-			
-			ProjectileDraw.draw(g2d, 1);
-			
-			if(currentMenu != null) {
-				currentMenu.draw(g2d);
-			}
-			
-			ProjectileDraw.draw(g2d, 2);
-		} 
+		if(gameRunning) this.layerDraw(g2d);
 		else if(currentMenu != null) {
-			g2d.setColor(Color.BLACK);
-			g2d.fillRect(0, 0, WIDTH, HEIGHT);
+			this.drawBlackBackground(g2d);
 			g2d.setColor(Color.WHITE);
 			currentMenu.draw(g2d);
 		}
@@ -178,6 +150,7 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener {
 			if(!currentRoom.isCleared() && currentRoom instanceof Room) {
 				mainChar.getStats().getHealth().heal(50);
 				currentRoom.clear();
+				System.out.println("Hit");
 			}
 		} else {
 			if(Enemy.passiveCounter > 0) {
@@ -315,6 +288,32 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener {
 	
 	public static int getFps() {
 		return Gamepanel.recordedFps;
+	}
+	
+	private void layerDraw(Graphics2D g2d) {
+		currentRoom.draw(g2d);
+		Timer.draw(g2d);
+		
+		EntityLists.drawInteracts(g2d);
+		
+		ProjectileDraw.draw(g2d, 0);
+		
+		mainChar.draw(g2d);
+		
+		EntityLists.drawEntities(g2d);
+		
+		ProjectileDraw.draw(g2d, 1);
+		
+		if(currentMenu != null) {
+			currentMenu.draw(g2d);
+		}
+		
+		ProjectileDraw.draw(g2d, 2);
+	}
+	
+	private void drawBlackBackground(Graphics2D g2d) {
+		g2d.setColor(Color.BLACK);
+		g2d.fillRect(0, 0, WIDTH, HEIGHT);
 	}
 	
 }

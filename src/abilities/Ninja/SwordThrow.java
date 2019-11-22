@@ -14,7 +14,7 @@ public class SwordThrow extends ProjectileAbility {
 	
 	private static final long serialVersionUID = -5410371648100018595L;
 
-	private static final LightSprite PROJECTILE_SPRITE = new LightSprite("imgs/projectiles/moving_sword.png", 4);
+	private static final LightSprite PROJECTILE_SPRITE = new LightSprite("imgs/projectiles/moving_sword.png");
 	
 	public static final byte SLOT = 1;
 	public static int cooldown = 900;
@@ -23,9 +23,7 @@ public class SwordThrow extends ProjectileAbility {
 
 	public SwordThrow() {
 		super(SLOT, cooldown, false);
-		super.setProjectileSpeed(projectileSpeed);
-		super.setDamage(damage);
-		super.setPierce(1);
+		this.internalInit(damage, projectileSpeed, 1);
 	}
 	
 	@Override

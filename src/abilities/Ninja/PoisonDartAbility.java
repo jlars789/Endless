@@ -26,10 +26,7 @@ public class PoisonDartAbility extends ProjectileAbility {
 
 	public PoisonDartAbility() {
 		super(SLOT, cooldown, false);
-		super.setDamage(damage);
-		super.setPierce(1);
-		super.setProjectileSpeed(projectileSpeed);
-		
+		this.internalInit(damage, projectileSpeed, 1);
 		this.poison = new Poison(tickDamage);
 	}
 	

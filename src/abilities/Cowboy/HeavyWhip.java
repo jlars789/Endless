@@ -29,10 +29,8 @@ public class HeavyWhip extends ProjectileAbility {
 
 	public HeavyWhip() {
 		super(SLOT, cooldown, false);
-		super.setDamage(damage);
-		super.setPierce(1);
-		super.setProjectileSpeed(0);
 		
+		super.internalInit(damage, 0, 1);
 		this.shatter = new Shatter(duration, damageMod);
 	}
 	

@@ -39,6 +39,19 @@ public abstract class ProjectileAbility extends Ability {
 		super.setDuration(duration);
 	}
 	
+	public ProjectileAbility extendInit(double damage, float projSpeed, int pierce) {
+		this.damage = damage;
+		this.projectileSpeed = projSpeed;
+		this.pierce = pierce;
+		return this;
+	}
+	
+	protected void internalInit(double damage, float projSpeed, int pierce) {
+		this.damage = damage;
+		this.projectileSpeed = projSpeed;
+		this.pierce = pierce;
+	}
+	
 	public void activate() {
 		Gamepanel.mainChar.setLock(true);
 		super.activate();
@@ -50,10 +63,6 @@ public abstract class ProjectileAbility extends Ability {
 		if(this.getType() != Ability.USE_MULTIPLE && this.getType() != Ability.EFFECT_PROJECTILE && !this.hasEffect()) {
 			super.abilityEnd();
 		}
-	}
-	
-	public void setDamage(double damage) {
-		this.damage = damage;
 	}
 	
 	public double getDamage() {
@@ -68,16 +77,8 @@ public abstract class ProjectileAbility extends Ability {
 		return this.projectileSpeed;
 	}
 	
-	public void setProjectileSpeed(float speed) {
-		this.projectileSpeed = speed;
-	}
-	
 	public int getPierce() {
 		return this.pierce;
-	}
-	
-	public void setPierce(int pierce) {
-		this.pierce = pierce;
 	}
 	
 	protected void addProjectiles() {

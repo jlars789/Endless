@@ -30,16 +30,22 @@ public abstract class StatusEffect {
 	}
 	
 	public static void loadImages() {
-		seSprite[0] = new HeavySprite("imgs/statuseffects/poison.png", 8, 8, 1, 3, 16, true, 4);
-		seSprite[1] = new HeavySprite("imgs/statuseffects/stun.png", 8, 8, 1, 2, 16, true, 4);
-		seSprite[2] = new HeavySprite("imgs/statuseffects/cripple.png", 8, 8, 1, 1, 0, true, 4);
-		seSprite[3] = new HeavySprite("imgs/statuseffects/weaken.png", 8, 8, 1, 1, 0, true, 4);
-		seSprite[4] = new HeavySprite("imgs/statuseffects/shatter.png", 8, 8, 1, 1, 0, true, 4);
+		seSprite[0] = new HeavySprite("imgs/statuseffects/poison.png", 8, 8, 1, 3, 16, true);
+		seSprite[1] = new HeavySprite("imgs/statuseffects/stun.png", 8, 8, 1, 2, 16, true);
+		seSprite[2] = new HeavySprite("imgs/statuseffects/cripple.png", 8, 8, 1, 1, 0, true);
+		seSprite[3] = new HeavySprite("imgs/statuseffects/weaken.png", 8, 8, 1, 1, 0, true);
+		seSprite[4] = new HeavySprite("imgs/statuseffects/shatter.png", 8, 8, 1, 1, 0, true);
 	}
 	
 	public static HeavySprite getSprite(int index) {
 		return seSprite[index].copy();
 	}
+	
+	/*
+	public HeavySprite getSprite(String name, int frames) {
+		return new HeavySprite("")
+	}
+	*/
 	
 	public abstract void draw(Graphics2D g);
 	

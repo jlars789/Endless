@@ -25,9 +25,7 @@ public class Trickshot extends ProjectileAbility {
 
 	public Trickshot() {
 		super(SLOT, cooldown, false);
-		super.setDamage(damage);
-		super.setPierce(1);
-		super.setProjectileSpeed(20);
+		this.internalInit(damage, 20, 1);
 	}
 	
 	public LightSprite getProjectileSprite() {

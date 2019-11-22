@@ -22,7 +22,7 @@ public class GunpowderAbility extends ProjectileAbility {
 
 	public GunpowderAbility() {
 		super(SLOT, cooldown, false);
-		super.setPierce(999);
+		super.internalInit(0, 0, 9999);
 	}
 
 	@Override

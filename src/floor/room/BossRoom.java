@@ -24,15 +24,15 @@ public class BossRoom extends Room {
 		INTERACT.setLocation(Room.CENTER_X, Room.CENTER_Y);
 	}
 	
-	public void enter() {
-		super.enter();
+	@Override
+	protected void enterEffect() {
 		if(!bossDefeated) this.bossCreate();
-		else super.addObject(INTERACT);
+		else super.addObj(INTERACT);
 	}
 	
 	private void bossCreate() {
 		int randomBoss = randomRange(0, BOSS_LIST.length - 1);
-		super.addObjDirect((BOSS_LIST[randomBoss]));
+		super.addObj((BOSS_LIST[randomBoss]));
 	}
 	
 	public int randomRange(int min, int max) { //creates a random integer range
@@ -43,7 +43,7 @@ public class BossRoom extends Room {
 	@Override
 	protected void action() {
 		bossDefeated = true;
-		super.addObjDirect(INTERACT);
+		super.addObj(INTERACT);
 	}
 
 }
