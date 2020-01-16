@@ -81,7 +81,7 @@ public abstract class Friendly implements Entity {
 		if(this.attackTimer > 0) this.attackTimer--;
 		else this.shoot();
 		
-		if(EntityLists.getHostileList().size() > 0) this.action(EntityLists.getHostileList().get(0));
+		if(EntityLists.getList(EntityLists.HOST_IND).size() > 0) this.action((Hostile)((EntityLists.getList(EntityLists.HOST_IND))).get(0));
 		
 		this.friendlyHitbox.setBounds(xCoor, yCoor, width, height);
 	}

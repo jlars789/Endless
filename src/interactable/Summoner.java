@@ -36,9 +36,9 @@ public class Summoner extends Interactable {
 	public void use() {
 		this.pressed = true;
 		Gamepanel.currentRoom.close();
-		for(int i = 0; i < EntityLists.getInteractableList().size(); i++) {
-			if(EntityLists.getInteractableList().get(i) instanceof Summoner) {
-				EntityLists.getInteractableList().get(i).setExpired();
+		for(int i = 0; i < EntityLists.getList(EntityLists.INTR_IND).size(); i++) {
+			if(EntityLists.getList(EntityLists.INTR_IND).get(i) instanceof Summoner) {
+				((Interactable) EntityLists.getList(EntityLists.INTR_IND).get(i)).setExpired();
 			}
 		}
 		

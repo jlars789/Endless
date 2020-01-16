@@ -3,10 +3,12 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import characters.Characters;
+import friendlies.Friendly;
 import main.Entity;
 import main.EntityLists;
 import main.Gamepanel;
 import main.Hitbox;
+import projectiles.Projectile;
 import projectiles.ProjectileType;
 import sprite.LightSprite;
 import sprite.Sprite;
@@ -94,16 +96,19 @@ public abstract class EnemyProjectile implements Entity {
 			this.impact();
 		}
 		
-		for(int i = 0; i < EntityLists.getProjectileList().size(); i++) {
-			if(EntityLists.getProjectileList().get(i).getType().compareTo(ProjectileType.ORBITAL_PROJECTILE) == 0) {
-				if(this.projectileHitbox.intersects(EntityLists.getProjectileList().get(i).getFullHitbox())) {
+		for(int i = 0; i < EntityLists.getList(EntityLists.PROJ_IND).size(); i++) {
+			if(EntityLists.getList(EntityLists.PROJ_IND).get(i) == null) {
+				break;
+			}
+			if(((Projectile) EntityLists.getList(EntityLists.PROJ_IND).get(i)).getType().compareTo(ProjectileType.ORBITAL_PROJECTILE) == 0) {
+				if(this.projectileHitbox.intersects(((Projectile) EntityLists.getList(EntityLists.PROJ_IND).get(i)).getFullHitbox())) {
 					this.impact();
 				}
 			}
 		}
 		
-		for(int i = 0; i < EntityLists.getFriendList().size(); i++) {
-			if(this.projectileHitbox.intersects(EntityLists.getFriendList().get(i).getFriendlyHitbox())) {
+		for(int i = 0; i < EntityLists.getList(EntityLists.FRND_IND).size(); i++) {
+			if(this.projectileHitbox.intersects(((Friendly) EntityLists.getList(EntityLists.FRND_IND).get(i)).getFriendlyHitbox())) {
 				this.impact();
 			}
 		}

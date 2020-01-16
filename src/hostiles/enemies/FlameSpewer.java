@@ -24,8 +24,8 @@ public class FlameSpewer extends Enemy {
 	@Override
 	protected void behavior() {
 		boolean friends = false;
-		for(int i = 0; i < EntityLists.getHostileList().size(); i++) {
-			if(!(EntityLists.getHostileList().get(i) instanceof FlameSpewer)) {
+		for(int i = 0; i < EntityLists.getList(EntityLists.HOST_IND).size(); i++) {
+			if(!(EntityLists.getList(EntityLists.HOST_IND).get(i) instanceof FlameSpewer)) {
 				friends = true;
 				break;
 			}

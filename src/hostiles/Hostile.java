@@ -167,22 +167,22 @@ public abstract class Hostile implements Entity {
 				this.pureHitbox.incX(xSpeed * delta);
 				this.pureHitbox.incY(ySpeed * delta);
 				
-				for(int i = 0; i < EntityLists.getHostileList().size(); i++) {
-					if(!EntityLists.getHostileList().get(i).equals(this)) {
+				for(int i = 0; i < EntityLists.getList(EntityLists.HOST_IND).size(); i++) {
+					if(!EntityLists.getList(EntityLists.HOST_IND).get(i).equals(this)) {
 						
-						if(this.pureHitbox.intersects(EntityLists.getHostileList().get(i).getFullHitbox())) {
-							this.collide(EntityLists.getHostileList().get(i));
+						if(this.pureHitbox.intersects(((Hostile) EntityLists.getList(EntityLists.HOST_IND).get(i)).getFullHitbox())) {
+							this.collide((Hostile) EntityLists.getList(EntityLists.HOST_IND).get(i));
 						}
-						else if(this.force.pathIntersects(EntityLists.getHostileList().get(i))) {
+						else if(this.force.pathIntersects((Hostile) EntityLists.getList(EntityLists.HOST_IND).get(i))) {
 							this.force.avoid();
 						} 
-						else if(this.force.freePath(EntityLists.getHostileList())) {
+						else if(this.force.freePath(EntityLists.getList(EntityLists.HOST_IND).list())) {
 							this.force.chase();
 						}
-						else if(!this.force.freePath(EntityLists.getHostileList())) {
+						else if(!this.force.freePath(EntityLists.getList(EntityLists.HOST_IND).list())) {
 							this.force.separate();
 						}
-					} else if(EntityLists.getHostileList().size() == 1) {
+					} else if(EntityLists.getList(EntityLists.HOST_IND).size() == 1) {
 						this.force.chase();
 					}
 				}
@@ -256,25 +256,29 @@ public abstract class Hostile implements Entity {
 	 * This is the only method in which player damage is used and applied
  	 */
 	
-	private final void projectileIterate() {
+	private synchronized final void projectileIterate() {
 		
-		if(EntityLists.getProjectileList().size() > 0) {
-			for(int i = 0; i < EntityLists.getProjectileList().size(); i++) {
-				if(EntityLists.getProjectileList().get(i).getFullHitbox().intersects(evalBox)) {
+		if(EntityLists.getList(EntityLists.PROJ_IND).size() > 0) {
+			for(int i = 0; i < EntityLists.getList(EntityLists.PROJ_IND).size(); i++) {
+				if(EntityLists.getList(EntityLists.PROJ_IND).get(i) == null) {
+					break;
+				} else {
+					if(((Projectile) EntityLists.getList(EntityLists.PROJ_IND).get(i)).getFullHitbox().intersects(evalBox)) {
 					
-					Projectile p = EntityLists.getProjectileList().get(i);
+						Projectile p = (Projectile) EntityLists.getList(EntityLists.PROJ_IND).get(i);
 					
-					if(!this.checkHit(p)) {
-						if(p.getFullHitbox().intersects(this.pureHitbox)) {
-							this.damage(p.getDamage());
-							p.effect(this);
-							p.impact();
-							if(p.getType().compareTo(ProjectileType.BEAM_PROJECTILE) < 0) {
-								this.hitBy(p);
+						if(!this.checkHit(p)) {
+							if(p.getFullHitbox().intersects(this.pureHitbox)) {
+								this.damage(p.getDamage());
+								p.effect(this);
+								p.impact();
+								if(p.getType().compareTo(ProjectileType.BEAM_PROJECTILE) < 0) {
+									this.hitBy(p);
+								}
 							}
 						}
-					}
 					
+					}
 				}
 			}
 		}
@@ -581,10 +585,10 @@ public abstract class Hostile implements Entity {
 		
 		ArrayList<Hostile> h = new ArrayList<Hostile>();
 		
-		for(int i = 0; i < EntityLists.getHostileList().size(); i++) {
-			if(EntityLists.getHostileList().get(i).getFullHitbox().intersects(proxim)) {
-				if(!EntityLists.getHostileList().get(i).equals(this)) {
-					h.add(EntityLists.getHostileList().get(i));
+		for(int i = 0; i < EntityLists.getList(EntityLists.HOST_IND).size(); i++) {
+			if(((Hostile) EntityLists.getList(EntityLists.HOST_IND).get(i)).getFullHitbox().intersects(proxim)) {
+				if(!EntityLists.getList(EntityLists.HOST_IND).get(i).equals(this)) {
+					h.add((Hostile) EntityLists.getList(EntityLists.HOST_IND).get(i));
 				}
 			}
 		}

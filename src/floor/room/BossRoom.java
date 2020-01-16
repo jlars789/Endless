@@ -32,7 +32,7 @@ public class BossRoom extends Room {
 	
 	private void bossCreate() {
 		int randomBoss = randomRange(0, BOSS_LIST.length - 1);
-		super.addObj((BOSS_LIST[randomBoss]));
+		super.addObj((BOSS_LIST[randomBoss].copy()));
 	}
 	
 	public int randomRange(int min, int max) { //creates a random integer range

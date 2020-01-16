@@ -5,6 +5,7 @@ import java.util.Random;
 
 import characters.Characters;
 import friendlies.Friendly;
+import main.Entity;
 import main.Gamepanel;
 
 public class Seek extends Force {
@@ -130,11 +131,11 @@ public class Seek extends Force {
 		return path.checkIntersect(h);
 	}
 	
-	public boolean freePath(ArrayList<Hostile> h) {
+	public boolean freePath(ArrayList<Entity> h) {
 		boolean path = true;
 		
 		for(int i = 0; i < h.size(); i++) {
-			if(this.potentialPath.checkIntersect(h.get(i)) && h.get(i).getBehavior() != Behavior.PHASE) path = false;
+			if(this.potentialPath.checkIntersect((Hostile) h.get(i)) && ((Hostile) h.get(i)).getBehavior() != Behavior.PHASE) path = false;
 		}
 		
 		return path;

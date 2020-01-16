@@ -7,78 +7,87 @@ import enemyprojectile.EnemyProjectile;
 import friendlies.Friendly;
 import hostiles.Hostile;
 import interactable.Interactable;
+import main.list.EnemyProjectileList;
+import main.list.EntityList;
+import main.list.FriendlyList;
+import main.list.HostileList;
+import main.list.InteractableList;
+import main.list.ProjectileList;
 import projectiles.Projectile;
-import projectiles.ProjectileType;
 
 public class EntityLists {
 	
-	public static ArrayList<Entity> entities = new ArrayList<Entity>();
+	//public static ArrayList<Entity> entities = new ArrayList<Entity>();
+	
+	public static final int PROJ_IND = 0;
+	public static final int EPROJ_IND = 1;
+	public static final int FRND_IND = 2;
+	public static final int HOST_IND = 3;
+	public static final int INTR_IND = 4;
+	
+	public static EntityList[] lists = {new ProjectileList(), new EnemyProjectileList(), new FriendlyList(), new HostileList(), new InteractableList()};
 	
 	public static synchronized final void update(double delta) {
 		Projectile.setDelta(delta);
-		for(int i = 0; i < entities.size(); i++) {
-			entities.get(i).update(delta);
-			if(entities.size() > 0 && entities.get(i).isExpired()) {
-				entities.remove(i);
-				if(i > 0) i--;
-			}
-		}
 	}
 	
 	public static synchronized void removeEntities(boolean withDiscrimination) {
 		if(withDiscrimination) {
-			for(int i = 0; i < entities.size(); i++) {
-				if(entities.get(i) instanceof Projectile) {
-					if(!(((Projectile)entities.get(i)).getType().compareTo(ProjectileType.PERSISTENT_PROJECTILE) < 0)) {
-						entities.remove(i);
-					}
-				} else {
-					entities.remove(i);
-				}
+			for(int i = 0; i < lists.length; i++) {
+				lists[i].clearWithDis();
+			}
+		} else {
+			for(int i = 0; i < lists.length; i++) {
+				lists[i].clear();
 			}
 		}
 	}
 	
 	public static void drawInteracts(Graphics2D g2d) {
-		for(int i = 0; i < getInteractableList().size(); i++) {
-			getInteractableList().get(i).draw(g2d);
-		}
+		lists[EntityLists.INTR_IND].draw(g2d);
 	}
 	
 	public static void drawEntities(Graphics2D g2d) {
-		for(int i = 0; i < getFriendList().size(); i++) {
-			getFriendList().get(i).draw(g2d);
-		}
-		for(int i = 0; i < getEnemyProjectileList().size(); i++) {
-			getEnemyProjectileList().get(i).draw(g2d);
-		}
-		for(int i = 0; i < getHostileList().size(); i++) {
-			getHostileList().get(i).draw(g2d);
-		}
+		lists[EntityLists.FRND_IND].draw(g2d);
+		lists[EntityLists.EPROJ_IND].draw(g2d);
+		lists[EntityLists.HOST_IND].draw(g2d);
 	}
 	
 	public static void addNew(ArrayList<Entity> entity) {
 		for(int i = 0; i < entity.size(); i++) {
-			entities.add(entity.get(i));
+			if(entity.get(i) instanceof Projectile) lists[EntityLists.PROJ_IND].add(entity.get(i));
+			else if(entity.get(i) instanceof EnemyProjectile) lists[EntityLists.EPROJ_IND].add(entity.get(i));
+			else if(entity.get(i) instanceof Hostile) lists[EntityLists.HOST_IND].add(entity.get(i));
+			else if(entity.get(i) instanceof Friendly) lists[EntityLists.FRND_IND].add(entity.get(i));
+			else if(entity.get(i) instanceof Interactable) lists[EntityLists.INTR_IND].add(entity.get(i));
 		}
 	}
 	
 	public static void addNew(Entity e) {
-		entities.add(e);
+		if(e instanceof Projectile) lists[EntityLists.PROJ_IND].add(e);
+		else if(e instanceof EnemyProjectile) lists[EntityLists.EPROJ_IND].add(e);
+		else if(e instanceof Hostile) lists[EntityLists.HOST_IND].add(e);
+		else if(e instanceof Friendly) lists[EntityLists.FRND_IND].add(e);
+		else if(e instanceof Interactable) lists[EntityLists.INTR_IND].add(e);
 	}
 	
 	public static void addNew(Entity[] e) {
 		for(int i = 0; i < e.length; i++) {
-			entities.add(e[i]);
+			if(e[i] instanceof Projectile) lists[EntityLists.PROJ_IND].add(e[i]);
+			else if(e[i] instanceof EnemyProjectile) lists[EntityLists.EPROJ_IND].add(e[i]);
+			else if(e[i] instanceof Hostile) lists[EntityLists.HOST_IND].add(e[i]);
+			else if(e[i] instanceof Friendly) lists[EntityLists.FRND_IND].add(e[i]);
+			else if(e[i] instanceof Interactable) lists[EntityLists.INTR_IND].add(e[i]);
 		}
 	}
 	
+	public static EntityList getList(int index) {
+		return lists[index];
+	}
+	
+	/*
 	public static ArrayList<Friendly> getFriendList() {
-		ArrayList<Friendly> list = new ArrayList<Friendly>();
-		for(int i = 0; i < entities.size(); i++) {
-			if(entities.get(i) instanceof Friendly) list.add((Friendly)entities.get(i)); 
-		}
-		return list;
+		return lists[EntityLists.FRND_IND];
 	}
 	
 	public static ArrayList<Hostile> getHostileList() {
@@ -112,13 +121,21 @@ public class EntityLists {
 		}
 		return list;
 	}
+	*/
 	
 	public static void removeHostiles() {
+		/*
 		for(int i = 0; i < entities.size(); i++) {
 			if(entities.get(i) instanceof Hostile) {
 				entities.remove(i);
 				//if(i > 0) i--;
 			}
 		}
+		*/
+		lists[EntityLists.HOST_IND].clear();
+	}
+	
+	public static boolean isListEmpty(int listIndex) {
+		return lists[listIndex].isEmpty();
 	}
 }

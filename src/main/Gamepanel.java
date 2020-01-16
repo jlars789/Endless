@@ -146,7 +146,7 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener {
 	
 	public void enemyScan() {
 
-		if(EntityLists.getHostileList().isEmpty()){
+		if(EntityLists.isListEmpty(EntityLists.HOST_IND)){
 			if(!currentRoom.isCleared() && currentRoom instanceof Room) {
 				mainChar.getStats().getHealth().heal(50);
 				currentRoom.clear();
@@ -185,7 +185,7 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener {
 			         fps = 0;
 		    	}
 		    	try {
-					Thread.sleep(0); 
+					Thread.sleep((long) 16.66667); 
 				} catch(Exception e) {
 					e.printStackTrace();
 				} 
